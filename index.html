@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiko Kids</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f2ff;
+  color: #292343;
+}
+
+header {
+  background: linear-gradient(120deg,#7048ff,#ff69b4);
+  color: white;
+  padding: 22px;
+  text-align: center;
+  border-radius: 0 0 25px 25px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+header p {
+  margin-top: 8px;
+}
+
+.search {
+  display: block;
+  width: 90%;
+  margin: 18px auto;
+  padding: 14px;
+  border: none;
+  border-radius: 25px;
+  font-size: 15px;
+}
+
+h2 {
+  margin: 20px;
+}
+
+.categories {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px 15px;
+}
+
+.categories button {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 25px;
+  background: white;
+  color: #7048ff;
+  font-weight: bold;
+}
+
+.feed {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.video {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px #ddd;
+}
+
+.thumbnail {
+  height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 55px;
+}
+
+.one {background:#ffd5e8;}
+.two {background:#d7e9ff;}
+.three {background:#fff0b8;}
+.four {background:#d9f5d5;}
+
+.video-info {
+  padding: 12px;
+}
+
+.video-info p {
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.upload-area {
+  margin: 20px;
+  padding: 22px;
+  background: white;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.upload-area button {
+  background: #7048ff;
+  color: white;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 25px;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+nav {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 5px;
+  box-shadow: 0 -3px 12px #ddd;
+}
+
+nav button {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #7048ff;
+  font-weight: bold;
+}
+
+.page {
+  display: none;
+  padding-bottom: 20px;
+}
+
+.page.active {
+  display: block;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌈 TIKO KIDS</div>
+  <p>Watch • Create • Have Fun!</p>
+</header>
+
+<input class="search" id="search"
+placeholder="🔍 Search fun videos..."
+oninput="searchVideos()">
+
+<section id="home" class="page active">
+
+<h2>🎉 Discover videos</h2>
+
+<div class="categories">
+<button onclick="filterVideos('all')">All</button>
+<button onclick="filterVideos('fun')">😂 Funny</button>
+<button onclick="filterVideos('learn')">📚 Learning</button>
+<button onclick="filterVideos('art')">🎨 Art</button>
+</div>
+
+<div class="feed" id="feed">
+
+<div class="video" data-category="fun">
+<div class="thumbnail one">😂</div>
+<div class="video-info">
+<strong>Funny Moments</strong>
+<p>⭐ Tiko Creator</p>
+<p>♥ 120 likes</p>
+</div>
+</div>
+
+<div class="video" data-category="learn">
+<div class="thumbnail two">🚀</div>
+<div class="video-info">
+<strong>Space Adventures</strong>
+<p>⭐ Learning Club</p>
+<p>♥ 95 likes</p>
+</div>
+</div>
+
+<div class="video" data-category="art">
+<div class="thumbnail three">🎨</div>
+<div class="video-info">
+<strong>Drawing Fun</strong>
+<p>⭐ Creative Kids</p>
+<p>♥ 80 likes</p>
+</div>
+</div>
+
+<div class="video" data-category="fun">
+<div class="thumbnail four">⚽</div>
+<div class="video-info">
+<strong>Sports Time</strong>
+<p>⭐ Sports Kids</p>
+<p>♥ 150 likes</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="explore" class="page">
+<h2>🌍 Explore Tiko</h2>
+<p style="padding:20px">
+Discover educational videos, art, music, science
+and creative activities.
+</p>
+</section>
+
+<section id="upload" class="page">
+<div class="upload-area">
+<h2>🎬 Create a video!</h2>
+<p>Share your creativity with the Tiko community.</p>
+<p style="margin-top:12px">
+🔒 Uploads require parental approval and safety review.
+</p>
+<input type="file" id="videoFile"
+accept="video/*" style="margin-top:20px">
+<br>
+<button onclick="uploadVideo()">Submit for review</button>
+<p id="uploadMessage" style="margin-top:15px"></p>
+</div>
+</section>
+
+<section id="messages" class="page">
+<h2>💬 Community</h2>
+<p style="padding:20px">
+Safe, moderated interactions will be available
+after account and parental safety systems are set up.
+</p>
+</section>
+
+<section id="profile" class="page">
+<h2>👤 My Profile</h2>
+<div class="upload-area">
+<h3>Welcome to Tiko Kids!</h3>
+<p>Your creative journey starts here.</p>
+<p>🌟 Your videos: 0</p>
+<p>🏆 Your achievements: 0</p>
+</div>
+</section>
+
+<footer>
+Tiko Kids © 2026<br>
+A fun and safer place to create and learn.
+</footer>
+
+<nav>
+<button onclick="showPage('home')">🏠<br>Home</button>
+<button onclick="showPage('explore')">🌍<br>Explore</button>
+<button onclick="showPage('upload')">➕<br>Create</button>
+<button onclick="showPage('messages')">💬<br>Community</button>
+<button onclick="showPage('profile')">👤<br>Profile</button>
+</nav>
+
+<script>
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+  document.getElementById(page).classList.add('active');
+}
+
+function filterVideos(category) {
+  document.querySelectorAll('.video').forEach(video => {
+    video.style.display =
+      category === 'all' ||
+      video.dataset.category === category
+      ? 'block' : 'none';
+  });
+}
+
+function searchVideos() {
+  const term = document.getElementById('search')
+    .value.toLowerCase();
+
+  document.querySelectorAll('.video').forEach(video => {
+    video.style.display =
+      video.innerText.toLowerCase().includes(term)
+      ? 'block' : 'none';
+  });
+}
+
+function uploadVideo() {
+  const file = document.getElementById('videoFile').files[0];
+  const message = document.getElementById('uploadMessage');
+
+  if (!file) {
+    message.innerText = 'Please select a video first.';
+    return;
+  }
+
+  if (file.size > 50 * 1024 * 1024) {
+    message.innerText = 'Video must be smaller than 50 MB.';
+    return;
+  }
+
+  message.innerText =
+    'Video selected! Real submission requires parent approval and secure server review.';
+}
+</script>
+
+</body>
+</html>
